@@ -18,7 +18,7 @@ jobs:
       - name: Install Node Modules
         run: npm i
       - name: Build Storybook
-        run: npm run build-storybook build-components
+        run: npm run build-storybook
       - name: Deploy Locally
         run: npm run deploy-storybook -- --dry-run -o ./out
       - name: Upload Storybook to GitHub Pages
