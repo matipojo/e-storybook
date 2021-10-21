@@ -35,8 +35,34 @@
 	&__caption {
 		font-size: 14px;
 
+		&--name {
+			font-size: 16px;
+		}
+
 		&:first-of-type {
 			margin-top: 10px;
+		}
+
+		&--dark {
+			opacity: 0.5;
+		}
+	}
+}
+
+.eps-theme-dark {
+	.ui-c-color-swatch {
+		&__swatch {
+			background-color: var(--color-swatch--dark-background-color);
+		}
+
+		&__caption {
+			&--light {
+				opacity: 0.5;
+			}
+
+			&--dark {
+				opacity: 1;
+			}
 		}
 	}
 }

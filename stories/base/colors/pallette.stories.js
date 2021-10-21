@@ -11,29 +11,31 @@ export default {
 
 const getRootCSSVariable = (styleSheets = document.styleSheets) => {
 	var cssVars = [];
-	// loop each stylesheet
-	for(var i = 0; i < styleSheets.length; i++){
-		// loop stylesheet's cssRules
-		try{ // try/catch used because 'hasOwnProperty' doesn't work
-			for( var j = 0; j < styleSheets[i].cssRules.length; j++){
-				try{
-					// loop stylesheet's cssRules' style (property names)
-					for(var k = 0; k < styleSheets[i].cssRules[j].style.length; k++){
+
+	// loop each stylesheet.
+	for ( let i = 0; i < styleSheets.length; i++ ){
+		// loop stylesheet's cssRules.
+		try { // try/catch used because 'hasOwnProperty' doesn't work
+			for ( let j = 0; j < styleSheets[i].cssRules.length; j++ ) {
+				try {
+					// loop stylesheet's cssRules' style (property names).
+					for ( let k = 0; k < styleSheets[i].cssRules[j].style.length; k++ ){
 						let name = styleSheets[i].cssRules[j].style[k];
-						// test name for css variable signiture and uniqueness
-						if(name.startsWith('--') && cssVars.indexOf(name) == -1){
-							cssVars.push(name);
+
+						// test name for css variable signature and uniqueness.
+						if( name.startsWith('--') && cssVars.indexOf(name) === -1 ){
+							cssVars.push( name );
 						}
 					}
-				} catch (error) {}
+				} catch ( error ) {}
 			}
-		} catch (error) {}
+		} catch ( error ) {}
 	}
 	return cssVars;
 };
 
 
-// This solution is pending for move all components CSS vars declarations from :root to the components level
+// This solution is pending for moving all components CSS vars declarations from :root to the components level.
 const colorsPending = getRootCSSVariable().map( ( cssVar ) => {
 	return {
 		title: Utils.dashCaseToSpacesPascalCase( cssVar.replace( '--', '' ) ),
@@ -42,64 +44,53 @@ const colorsPending = getRootCSSVariable().map( ( cssVar ) => {
 } );
 
 const colors = [
-	{ title: 'green-spandex', color: '#39b54a' },
-	{ title: 'yellow-hot-sun', color: '#fcb92c' },
-	{ title: 'red-tomato-frog', color: '#F84343' },
-	{ title: 'red-carnelian', color: '#b01b1b' },
-	{ title: 'red-rose-garnet', color: '#93003F' },
-	{ title: 'cyan-ionized-air-glow', color: '#58d0f5' },
-	{ title: 'black', color: '#000' },
-	{ title: 'white', color: '#fff' },
+	{ title: 'success', color: '#39b54a', dark: '#39b54a' },
+	{ title: 'warning', color: '#fcb92c', dark: '#fcb92c' },
+	{ title: 'danger', color: '#b01b1b', dark: '#F84343' },
+	{ title: 'cta', color: '#93003F', dark: '#93003F' },
+	{ title: 'info', color: '#58d0f5', dark: '#58d0f5' },
+	{ title: 'dark', color: '#000', dark: '#000' },
+	{ title: 'text-muted', color: '#d5dadf', dark: '#7d7e82' },
+	{ title: 'disabled', color: '#c2cbd2', dark: '#64666a' },
+	{ title: 'light', color: '#fff', dark: '#fff' },
 ];
 
-const grays = [
-	{ title: 'gray-anthracite', color: '#26292C' },
-	{ title: 'gray-metalise', color: '#34383c' },
-	{ title: 'gray-napoleon', color: '#404349' },
-	{ title: 'gray-lamp-post', color: '#495157' },
-	{ title: 'gray-abbey', color: '#4c4f56' },
-	{ title: 'gray-blue-planet', color: '#556068' },
-	{ title: 'gray-stone-hearth', color: '#64666a' },
-	{ title: 'gray-sheffield', color: '#6d7882' },
-	{ title: 'gray-silver-filigree', color: '#7d7e82' },
-	{ title: 'gray-special-delivery', color: '#a4afb7' },
-	{ title: 'gray-brainstem', color: '#b4b5b7' },
-	{ title: 'gray-stone-golem', color: '#c2cbd2' },
-	{ title: 'gray-hidden-creek', color: '#d5dadf' },
-	{ title: 'gray-yin-bai-silver', color: '#e0e1e3' },
-	{ title: 'gray-anti-flash', color: '#f1f3f5' },
-	{ title: 'gray-emptiness', color: '#fcfcfc' },
+const tints = [
+	{ title: '800', color: '#495157', dark: '#26292C' },
+	{ title: '700', color: '#556068', dark: '#34383c' },
+	{ title: '600', color: '#6d7882', dark: '#404349' },
+	{ title: '500', color: '#a4afb7', dark: '#4c4f56' },
+	{ title: '400', color: '#c2cbd2', dark: '#64666a' },
+	{ title: '300', color: '#d5dadf', dark: '#7d7e82' },
+	{ title: '200', color: '#f1f3f5', dark: '#b4b5b7' },
+	{ title: '100', color: '#fcfcfc', dark: '#e0e1e3' },
 ];
 
-export const Pallette = () => (
+const sections = [
+	{ title: 'Theme Colors', data: colors },
+	{ title: 'Tints', data: tints },
+];
+
+export const Palette = () => (
 	<>
-		<section>
-			<h1>Colors</h1>
-			<CssGrid columns={4} colMinWidth={50} spacing={0}>
-				{
-					colors.map( ( swatch, index ) => (
-						<ColorSwatch
-							key={ index }
-							title={ Utils.dashCaseToSpacesPascalCase( swatch.title ) }
-							swatch={ swatch.color }
-						/>
-					) )
-				}
-			</CssGrid>
-		</section>
-		<section>
-			<h1>Grays</h1>
-			<CssGrid columns={4} colMinWidth={50} spacing={0}>
-				{
-					grays.map( ( swatch, index ) => (
-						<ColorSwatch
-							key={ index }
-							title={ Utils.dashCaseToSpacesPascalCase( swatch.title ) }
-							swatch={ swatch.color }
-						/>
-					) )
-				}
-			</CssGrid>
-		</section>
+		{
+			sections.map( ( section ) => (
+				<section key={ section.title }>
+					<h1>{ section.title }</h1>
+					<CssGrid columns={9} colMinWidth={50} spacing={0}>
+						{
+							section.data.map( ( swatch, index ) => (
+								<ColorSwatch
+									key={ index }
+									title={ Utils.dashCaseToSpacesPascalCase( `${ swatch.title }` ) }
+									swatch={ swatch.color }
+									swatchDark={ swatch.dark }
+								/>
+							) )
+						}
+					</CssGrid>
+				</section>
+			) )
+		}
 	</>
 );
