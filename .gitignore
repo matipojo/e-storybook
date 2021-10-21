@@ -1,4 +1,6 @@
 /node_modules
 /storybook-static
+/auto-components
+/stories/components
 /.idea
 /package-lock.json
