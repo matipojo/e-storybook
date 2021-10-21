@@ -25,13 +25,13 @@ module.exports = {
   ],
   webpackFinal: config => {
     config.plugins.push(
+        new CreateFiles( componentsStoriesData ),
         new webpack.ProvidePlugin( {
             React: 'react',
             PropTypes: 'prop-types',
             jQuery: 'jquery',
             __: ['@wordpress/i18n', '__'],
-        } ),
-        new CreateFiles( componentsStoriesData ),
+        } )
     );
 
     return config;

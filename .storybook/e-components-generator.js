@@ -111,6 +111,8 @@ function createComponents( directoryPath, relativePath, componentsData ) {
 			return console.log('Unable to scan directory: ' + err);
 		}
 
+		console.log( 'files', files );
+
 		files.forEach( (file) => {
 			if ( eUtils.isDirectory( file ) && ! eConfig.source.components.excludeFolders.includes( file ) ) {
 				componentsData = createComponents( directoryPath + file + path.sep, file, componentsData );
@@ -149,11 +151,14 @@ function createComponents( directoryPath, relativePath, componentsData ) {
 
 module.exports = {
 	create: ( processArgv ) => {
+		console.log( 'processArgv', processArgv );
 		if ( ! processArgv.includes( eConfig.stories.auto.buildTrigger ) ) {
 			return [];
 		}
 
 		const sourceComponentsFolder = path.join(__dirname, eConfig.source.components.directory);
+
+		console.log( 'sourceComponentsFolder', sourceComponentsFolder );
 
 		return createComponents( sourceComponentsFolder );
 	},
