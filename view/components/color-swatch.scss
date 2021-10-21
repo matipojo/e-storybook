@@ -14,16 +14,16 @@
 
 		&:first-child {
 			.#{ui-c-color-swatch}__swatch {
-				height: 100px;
-				width: 100px;
+				height: 80px;
+				width: 80px;
 			}
 		}
 	}
 
 	&__swatch {
 		background-color: var(--color-swatch--background-color);
-		height: 100px;
-		width: 100px;
+		height: 80px;
+		width: 80px;
 		margin-top: auto;
 		border: 1px solid grey;
 	}
